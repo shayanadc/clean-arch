@@ -7,7 +7,9 @@ use App\Http\Requests\UserStoreRequest;
 use App\InputBoundaries\UserRegisterInputBoundary;
 use App\Presenters\Presenter;
 use App\Presenters\UserRegistrationJsonPresenter;
+use App\Presenters\UserRemoveJsonPresenter;
 use App\UseCases\UserRegistrationUseCase;
+use App\UseCases\UserRemoveUseCase;
 use App\User;
 use Illuminate\Http\Request;
 
@@ -94,30 +96,5 @@ class UserController extends Controller
         $uc = new UserRemoveUseCase($presenter);
         return $uc->perform($id);
 
-    }
-}
-
-class UserRemoveUseCase{
-    private $presenter;
-    public function __construct(Presenter $presenter)
-    {
-        $this->presenter = $presenter;
-    }
-    public function perform($id){
-        try{
-            User::findAndDelete($id);
-            return $this->presenter->parse($id);
-        }catch (\Exception $exception){
-            return $this->presenter->parseException($exception);
-        }
-    }
-}
-class UserRemoveJsonPresenter implements Presenter{
-    public function parse($output)
-    {
-        return response()->json(["message" => 'user ' . $output . ' deleted successfully'],200);
-    }
-    public function parseException($exception){
-        return response()->json(["errors" =>  [ ["title" => "User Id Not Found."]]],400);
     }
 }
