@@ -81,15 +81,17 @@ class FeatureContext extends \Tests\TestCase implements Context
     {
         if($arg1 == 'POST') $this->response = $this->postJson($this->endpoint,$this->request);
         if($arg1 == 'DELETE') $this->response = $this->deleteJson($this->endpoint,$this->request);
+        if($arg1 == 'PUT') $this->response = $this->putJson($this->endpoint,$this->request);
     }
 
     /**
-     * @Given I have created user with email :arg1
+     * @Given I have created user with email :arg1 and phone :arg2
      */
-    public function iHaveCreatedUserWithEmail($arg1)
+    public function iHaveCreatedUserWithEmailAndPhone($arg1, $arg2)
     {
         factory(\App\User::class)->create([
-            'email' => $arg1
+            'email' => $arg1,
+            'phone' => $arg2
         ]);
     }
 
