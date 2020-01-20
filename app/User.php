@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Entities\UserEntity;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -16,7 +17,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'fname', 'lname', 'phone', 'email', 'password',
     ];
 
     /**
@@ -36,4 +37,13 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+    public function createNew(UserEntity $entity){
+        return User::create([
+            'email' => $entity->email,
+            'fname' => $entity->fname,
+            'lname' => $entity->lname,
+            'password' => $entity->password,
+            'phone' => $entity->phone
+        ]);
+    }
 }
