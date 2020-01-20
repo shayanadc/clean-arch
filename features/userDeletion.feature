@@ -15,8 +15,8 @@ Feature: Delete User From App
           "message" : "user deleted successfully"
         }
         """
-
-  Scenario: Failed To Remove Not Existing User
+  @2
+  Scenario: Failed To Remove Non Existing User
     Given I am a member
     When I open endpoint '/api/users/1'
     And send "DELETE" request
@@ -25,7 +25,7 @@ Feature: Delete User From App
       """
           {
             "errors": [{
-              "title": "User Id Not Found.",
+              "title": "User Id Not Found."
               }]
           }
       """
