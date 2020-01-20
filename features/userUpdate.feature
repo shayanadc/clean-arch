@@ -2,6 +2,7 @@ Feature: Update User With Details Information
   In Order To Update User Information In Application
   As A Member
   I Need To Be Able To Change User Personal Information
+  @1
   Scenario: Update Existing User Successfully
     Given I am a member
     And I have created user with email "azar@email.com" and phone "09397730108"

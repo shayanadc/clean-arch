@@ -4,10 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Entities\UserEntity;
 use App\Http\Requests\UserStoreRequest;
+use App\InputBoundaries\InputBoundary;
 use App\InputBoundaries\UserRegisterInputBoundary;
+use App\InputBoundaries\UserUpdateInputBoundary;
 use App\Presenters\Presenter;
 use App\Presenters\UserRegistrationJsonPresenter;
 use App\Presenters\UserRemoveJsonPresenter;
+use App\Presenters\UserUpdateJsonPresenter;
 use App\UseCases\UserRegistrationUseCase;
 use App\UseCases\UserRemoveUseCase;
 use App\User;
@@ -81,21 +84,11 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        try{
-            $user = User::findOrFail($id);
-            $input = $request->except(['password', 'email']);
-            $user->update($input);
-            $user->fresh();
-            return [
-                'id' => $user->id,
-                'fname' => $user->fname,
-                'lname' => $user->lname,
-                'email' => $user->email,
-                'phone' => $user->phone
-            ];
-        }catch (\Exception $exception){
-            return response()->json(['errors' => [['title' => 'User Not Found.']]],400);
-        }
+        $inputBoundary = new UserUpdateInputBoundary();
+        $input = $inputBoundary->make($request->toArray(), $id);
+        $presenter = new UserUpdateJsonPresenter();
+        $UC = new UserUpdateUseCase($presenter);
+        return $UC->perform($input);
 
     }
 
@@ -111,5 +104,23 @@ class UserController extends Controller
         $UC = new UserRemoveUseCase($presenter);
         return $UC->perform($id);
 
+    }
+}
+
+class UserUpdateUseCase{
+    private $presenter;
+    public function __construct(Presenter $presenter)
+    {
+        $this->presenter = $presenter;
+    }
+    public function perform($input){
+        try{
+            unset($input['password']);
+            unset($input['email']);
+            $user = User::findAndUpdate($input['id'], $input);
+            return $this->presenter->parse($user);
+        }catch (\Exception $exception){
+            return $this->presenter->parseException($exception);
+        }
     }
 }
