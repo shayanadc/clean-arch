@@ -2,7 +2,7 @@
 
 namespace App;
 
-use App\Entity\UserEntity;
+use App\Entities\UserEntity;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;

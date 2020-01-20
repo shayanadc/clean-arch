@@ -6,7 +6,7 @@
  * Time: 11:55 AM
  */
 
-namespace App\Entity;
+namespace App\Entities;
 
 
 class UserEntity
@@ -16,7 +16,7 @@ class UserEntity
     public $fname;
     public $lname;
     public $password;
-    public function create($array)
+    public function create(array $array)
     {
         $this->email = $array['email'];
         $this->phone = $array['phone'];

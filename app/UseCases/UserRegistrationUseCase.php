@@ -6,12 +6,12 @@
  * Time: 12:43 PM
  */
 
-namespace App\UseCase;
+namespace App\UseCases;
 
 
-use App\Entity\UserEntity;
-use App\Presenter\Presenter;
-use App\Presenter\UserRegistrationJsonPresenter;
+use App\Entities\UserEntity;
+use App\Presenters\Presenter;
+use App\Presenters\UserRegistrationJsonPresenter;
 use App\User;
 
 class UserRegistrationUseCase

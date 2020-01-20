@@ -5,7 +5,7 @@
  * Date: 1/20/20
  * Time: 11:41 AM
  */
-namespace App\InputBoundary;
+namespace App\InputBoundaries;
 
 class UserRegisterInputBoundary implements InputBoundary
 {

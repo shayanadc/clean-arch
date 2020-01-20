@@ -6,7 +6,7 @@
  * Time: 12:28 PM
  */
 
-namespace App\Presenter;
+namespace App\Presenters;
 
 
 class UserRegistrationJsonPresenter implements Presenter

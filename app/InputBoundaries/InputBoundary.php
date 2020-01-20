@@ -5,7 +5,7 @@
  * Date: 1/20/20
  * Time: 11:40 AM
  */
-namespace App\InputBoundary;
+namespace App\InputBoundaries;
 interface InputBoundary{
     public function make(array $request);
 }

@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Entity\UserEntity;
+use App\Entities\UserEntity;
 use App\Http\Requests\UserStoreRequest;
-use App\InputBoundary\UserRegisterInputBoundary;
-use App\Presenter\UserRegistrationJsonPresenter;
-use App\UseCase\UserRegistrationUseCase;
+use App\InputBoundaries\UserRegisterInputBoundary;
+use App\Presenters\UserRegistrationJsonPresenter;
+use App\UseCases\UserRegistrationUseCase;
 use App\User;
 use Illuminate\Http\Request;
 
