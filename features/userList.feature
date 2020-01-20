@@ -12,21 +12,19 @@ Feature: List Users
     Then I should receive ok
     And receive JSON response:
         """
-        {
           [{
           "id" : 1,
           "email" : "azar@email.com",
-          "phone" : "09397730108",
+          "phone" : "09397730108"
           },
           {
           "id" : 2,
           "email" : "babak@email.com",
-          "phone" : "09127730108",
+          "phone" : "09127730108"
           }
           ]
-        }
         """
-
+  @2
   Scenario: Filter Between Existing User Successfully
     Given I am a member
     And I have created user with email "azar@email.com" and phone "09397730108"
@@ -36,12 +34,10 @@ Feature: List Users
     Then I should receive ok
     And receive JSON response:
         """
-        {
           [{
           "id" : 1,
           "email" : "azar@email.com",
           "phone" : "09397730108"
           }
           ]
-        }
         """
