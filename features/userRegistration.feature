@@ -32,7 +32,7 @@ Feature: Register User With Details Information
 
   Scenario: Failed Registration For Duplicate Email
     Given I am a member
-    And I have created user with email "babak@email.com"
+    And I have created user with email "babak@email.com" and phone "09397730108"
     When I open endpoint '/api/users'
     And fill the form with:
       """

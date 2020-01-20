@@ -47,6 +47,11 @@ class User extends Authenticatable
             'phone' => $entity->phone
         ]);
     }
+    public static function findAndUpdate($id, $items){
+        $user = User::findOrFail($id);
+        $user->update($items);
+        return $user->fresh();
+    }
     public static function findAndDelete($id){
         $user = User::findOrFail($id);
         $user->destroy($id);

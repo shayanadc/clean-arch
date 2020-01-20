@@ -4,12 +4,16 @@ namespace App\Http\Controllers;
 
 use App\Entities\UserEntity;
 use App\Http\Requests\UserStoreRequest;
+use App\InputBoundaries\InputBoundary;
 use App\InputBoundaries\UserRegisterInputBoundary;
+use App\InputBoundaries\UserUpdateInputBoundary;
 use App\Presenters\Presenter;
 use App\Presenters\UserRegistrationJsonPresenter;
 use App\Presenters\UserRemoveJsonPresenter;
+use App\Presenters\UserUpdateJsonPresenter;
 use App\UseCases\UserRegistrationUseCase;
 use App\UseCases\UserRemoveUseCase;
+use App\UseCases\UserUpdateUseCase;
 use App\User;
 use Illuminate\Http\Request;
 
@@ -81,7 +85,12 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $inputBoundary = new UserUpdateInputBoundary();
+        $input = $inputBoundary->make($request->toArray(), $id);
+        $presenter = new UserUpdateJsonPresenter();
+        $UC = new UserUpdateUseCase($presenter);
+        return $UC->perform($input);
+
     }
 
     /**

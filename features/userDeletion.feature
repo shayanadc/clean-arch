@@ -5,7 +5,7 @@ Feature: Delete User From App
 
   Scenario: Remove Softly Existing User Successfully
     Given I am a member
-    And I have created user with email "azar@email.com"
+    And I have created user with email "azar@email.com" and phone "09397730108"
     When I open endpoint '/api/users/1'
     And send "DELETE" request
     Then I should receive ok
@@ -17,7 +17,6 @@ Feature: Delete User From App
         """
     And I could not see user with id "1"
 
-  @2
   Scenario: Failed To Remove Non Existing User
     Given I am a member
     When I open endpoint '/api/users/1'
