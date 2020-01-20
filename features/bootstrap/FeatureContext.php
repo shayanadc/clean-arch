@@ -82,6 +82,7 @@ class FeatureContext extends \Tests\TestCase implements Context
         if($arg1 == 'POST') $this->response = $this->postJson($this->endpoint,$this->request);
         if($arg1 == 'DELETE') $this->response = $this->deleteJson($this->endpoint,$this->request);
         if($arg1 == 'PUT') $this->response = $this->putJson($this->endpoint,$this->request);
+        if($arg1 == 'GET') $this->response = $this->getJson($this->endpoint);
     }
 
     /**
