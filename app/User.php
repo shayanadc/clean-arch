@@ -4,12 +4,13 @@ namespace App;
 
 use App\Entities\UserEntity;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
-    use Notifiable;
+    use SoftDeletes, Notifiable;
 
     /**
      * The attributes that are mass assignable.
@@ -45,5 +46,9 @@ class User extends Authenticatable
             'password' => $entity->password,
             'phone' => $entity->phone
         ]);
+    }
+    public static function findAndDelete($id){
+        $user = User::findOrFail($id);
+        $user->destroy($id);
     }
 }

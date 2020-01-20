@@ -5,8 +5,11 @@ namespace App\Http\Controllers;
 use App\Entities\UserEntity;
 use App\Http\Requests\UserStoreRequest;
 use App\InputBoundaries\UserRegisterInputBoundary;
+use App\Presenters\Presenter;
 use App\Presenters\UserRegistrationJsonPresenter;
+use App\Presenters\UserRemoveJsonPresenter;
 use App\UseCases\UserRegistrationUseCase;
+use App\UseCases\UserRemoveUseCase;
 use App\User;
 use Illuminate\Http\Request;
 
@@ -89,6 +92,9 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $presenter = new UserRemoveJsonPresenter();
+        $UC = new UserRemoveUseCase($presenter);
+        return $UC->perform($id);
+
     }
 }
