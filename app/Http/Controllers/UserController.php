@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Entity\UserEntity;
 use App\InputBoundary\UserRegisterInputBoundary;
 use App\Presenter\UserRegistrationJsonPresenter;
+use App\UseCase\UserRegistrationUseCase;
 use App\User;
 use Illuminate\Http\Request;
 
@@ -40,12 +41,9 @@ class UserController extends Controller
     {
         $userRegisterInput = new UserRegisterInputBoundary();
         $inputBoundary = $userRegisterInput->make($request->toArray());
-        $userEntity = new UserEntity();
-        $user = $userEntity->create($inputBoundary);
-        $userModel = new User();
-        $newUser = $userModel->createNew($user);
         $presenter = new UserRegistrationJsonPresenter();
-        return $presenter->parse($newUser);
+        $useCase = new UserRegistrationUseCase($presenter);
+        return $useCase->perform($inputBoundary);
     }
 
     /**
