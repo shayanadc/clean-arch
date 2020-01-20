@@ -81,4 +81,22 @@ class FeatureContext extends \Tests\TestCase implements Context
     {
         if($arg1 == 'POST') $this->response = $this->postJson($this->endpoint,$this->request);
     }
+
+    /**
+     * @Given I have created user with email :arg1
+     */
+    public function iHaveCreatedUserWithEmail($arg1)
+    {
+        factory(\App\User::class)->create([
+            'email' => $arg1
+        ]);
+    }
+
+    /**
+     * @Then I should receive not ok
+     */
+    public function iShouldReceiveNotOk()
+    {
+        $this->response->assertStatus(200);
+    }
 }
