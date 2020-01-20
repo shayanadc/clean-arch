@@ -58,3 +58,31 @@ Feature: Register User With Details Information
               }]
           }
       """
+
+  Scenario: Failed Registration For Password Confirmation
+    Given I am a member
+    When I open endpoint '/api/users'
+    And fill the form with:
+      """
+       {
+        "email" : "babak@email.com",
+        "phone" : "09397730108",
+        "fname" : "babak",
+        "lname" : "b",
+        "password": "password",
+        "password_confirmation" : "not_password"
+      }
+        """
+    And send "POST" request
+    Then I should receive not ok
+    And receive JSON response:
+      """
+          {
+            "errors": [{
+              "title": "The email has already been taken.",
+              "source" : {
+                 "parameter": "password"
+               }
+              }]
+          }
+      """
