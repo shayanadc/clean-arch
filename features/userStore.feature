@@ -79,7 +79,7 @@ Feature: Register User With Details Information
       """
           {
             "errors": [{
-              "title": "The email has already been taken.",
+              "title": "The password confirmation does not match.",
               "source" : {
                  "parameter": "password"
                }
