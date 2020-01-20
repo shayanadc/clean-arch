@@ -13,10 +13,10 @@ class UserListJsonPresenter implements Presenter
 {
     public function parse($output)
     {
-       return $output->map->only(['id', 'email', 'phone']);
+       return response()->json($output->map->only(['id', 'email', 'phone']),200);
     }
-    public function parseException($output)
+    public function parseException($exception)
     {
-
+        return response()->json($exception,200);
     }
 }

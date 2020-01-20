@@ -14,8 +14,8 @@ class UserListInputBoundary implements InputBoundary
     public function make(array $request)
     {
         $filters = [];
-        if(isset($request['email'])) array_push($filters, $request['email']);
-        if(isset($request['phone'])) array_push($filters, $request['phone']);
-        return ['filter' => $filters];
+        if(isset($request['email'])) $filters['email'] = $request['email'];
+        if(isset($request['phone'])) $filters['phone'] = $request['phone'];
+        return ['filters' => $filters];
     }
 }

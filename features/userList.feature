@@ -21,15 +21,14 @@ Feature: List Users
           "id" : 2,
           "email" : "babak@email.com",
           "phone" : "09127730108"
-          }
-          ]
+          }]
         """
   @2
   Scenario: Filter Between Existing User Successfully
     Given I am a member
     And I have created user with email "azar@email.com" and phone "09397730108"
     And I have created user with email "babak@email.com" and phone "09127730108"
-    When I open endpoint '/api/users?email=azar@email.com&phone=09397730108'
+    When I open endpoint '/api/users?email=azar@email.com'
     And send "GET" request
     Then I should receive ok
     And receive JSON response:
