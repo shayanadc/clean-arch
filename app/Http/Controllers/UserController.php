@@ -24,9 +24,13 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $users = User::get();
+        $users = new User();
+        if($request->has('email')){
+            $users = User::where('email', $request->input('email'));
+        }
+        $users = $users->get();
         $subset = $users->map->only(['id', 'phone', 'email']);
         return $subset;
     }
