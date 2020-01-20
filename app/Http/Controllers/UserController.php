@@ -93,8 +93,8 @@ class UserController extends Controller
     public function destroy($id)
     {
         $presenter = new UserRemoveJsonPresenter();
-        $uc = new UserRemoveUseCase($presenter);
-        return $uc->perform($id);
+        $UC = new UserRemoveUseCase($presenter);
+        return $UC->perform($id);
 
     }
 }
