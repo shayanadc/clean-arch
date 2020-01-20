@@ -13,6 +13,7 @@ class FeatureContext extends \Tests\TestCase implements Context
     private $endpoint;
     private $request;
     private $response;
+    use \Illuminate\Foundation\Testing\DatabaseMigrations;
     /**
      * Initializes context.
      *

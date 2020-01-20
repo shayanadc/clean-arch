@@ -2,6 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Entity\UserEntity;
+use App\InputBoundary\UserRegisterInputBoundary;
+use App\Presenter\UserRegistrationJsonPresenter;
+use App\UseCase\UserRegistrationUseCase;
+use App\User;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -34,7 +39,11 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $userRegisterInput = new UserRegisterInputBoundary();
+        $inputBoundary = $userRegisterInput->make($request->toArray());
+        $presenter = new UserRegistrationJsonPresenter();
+        $useCase = new UserRegistrationUseCase($presenter);
+        return $useCase->perform($inputBoundary);
     }
 
     /**
