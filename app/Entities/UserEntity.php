@@ -9,6 +9,9 @@
 namespace App\Entities;
 
 
+use App\BcryptHashMaker;
+use App\HashMakerInterface;
+
 class UserEntity
 {
     public $email;
@@ -16,14 +19,23 @@ class UserEntity
     public $fname;
     public $lname;
     public $password;
+    private $hashMakerInterface;
+    public function __construct()
+    {
+        $this->hashMakerInterface = new BcryptHashMaker();
+    }
+
     public function create(array $array)
     {
         $this->email = $array['email'];
         $this->phone = $array['phone'];
         $this->fname = $array['fname'];
         $this->lname = $array['lname'];
-        $this->password = $array['password'];
+        $this->password = $this->makePassword($array['password'], $this->hashMakerInterface);
         return $this;
+    }
+    public function makePassword($string, HashMakerInterface $hashMaker){
+        return $hashMaker->make($string);
     }
 
 }
