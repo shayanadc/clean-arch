@@ -81,7 +81,22 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        try{
+            $user = User::findOrFail($id);
+            $input = $request->except(['password', 'email']);
+            $user->update($input);
+            $user->fresh();
+            return [
+                'id' => $user->id,
+                'fname' => $user->fname,
+                'lname' => $user->lname,
+                'email' => $user->email,
+                'phone' => $user->phone
+            ];
+        }catch (\Exception $exception){
+            return response()->json(['errors' => [['title' => 'User Not Found.']]],400);
+        }
+
     }
 
     /**
