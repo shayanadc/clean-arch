@@ -51,8 +51,10 @@ Feature: Register User With Details Information
       """
           {
             "errors": [{
-              "title": "email",
-              "message" : "your email is..."
+              "title": "The email has already been taken.",
+              "source" : {
+                 "parameter": "email"
+               }
               }]
           }
       """

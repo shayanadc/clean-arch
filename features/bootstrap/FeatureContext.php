@@ -97,6 +97,6 @@ class FeatureContext extends \Tests\TestCase implements Context
      */
     public function iShouldReceiveNotOk()
     {
-        $this->response->assertStatus(200);
+        $this->response->assertStatus(400);
     }
 }
