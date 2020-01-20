@@ -47,4 +47,8 @@ class User extends Authenticatable
             'phone' => $entity->phone
         ]);
     }
+    public static function findAndDelete($id){
+        $user = User::findOrFail($id);
+        $user->destroy($id);
+    }
 }

@@ -100,4 +100,12 @@ class FeatureContext extends \Tests\TestCase implements Context
     {
         $this->response->assertStatus(400);
     }
+
+    /**
+     * @Then I could not see user with id :arg1
+     */
+    public function iCouldNotSeeUserWithId($arg1)
+    {
+        $this->assertCount(0, \App\User::where('id',$arg1)->get());
+    }
 }

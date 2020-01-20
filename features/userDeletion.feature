@@ -12,9 +12,11 @@ Feature: Delete User From App
     And receive JSON response:
         """
         {
-          "message" : "user deleted successfully"
+          "message" : "user 1 deleted successfully"
         }
         """
+    And I could not see user with id "1"
+
   @2
   Scenario: Failed To Remove Non Existing User
     Given I am a member
