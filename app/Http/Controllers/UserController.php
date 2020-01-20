@@ -5,9 +5,11 @@ namespace App\Http\Controllers;
 use App\Entities\UserEntity;
 use App\Http\Requests\UserStoreRequest;
 use App\InputBoundaries\InputBoundary;
+use App\InputBoundaries\UserListInputBoundary;
 use App\InputBoundaries\UserRegisterInputBoundary;
 use App\InputBoundaries\UserUpdateInputBoundary;
 use App\Presenters\Presenter;
+use App\Presenters\UserListJsonPresenter;
 use App\Presenters\UserRegistrationJsonPresenter;
 use App\Presenters\UserRemoveJsonPresenter;
 use App\Presenters\UserUpdateJsonPresenter;
@@ -26,13 +28,11 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
-        $users = new User();
-        if($request->has('email')){
-            $users = User::where('email', $request->input('email'));
-        }
-        $users = $users->get();
-        $subset = $users->map->only(['id', 'phone', 'email']);
-        return $subset;
+        $inputBoundary = new UserListInputBoundary();
+        $input = $inputBoundary->make($request->query());
+        $presenter = new UserListJsonPresenter();
+        $uc = new UserListUseCase($presenter);
+        return $uc->perform($input);
     }
 
     /**
@@ -110,6 +110,32 @@ class UserController extends Controller
         $presenter = new UserRemoveJsonPresenter();
         $UC = new UserRemoveUseCase($presenter);
         return $UC->perform($id);
+
+    }
+}
+
+class UserListUseCase{
+    public $presenter;
+    public function __construct(Presenter $presenter)
+    {
+        $this->presenter = $presenter;
+    }
+
+    public function perform($input){
+        try{
+            $users = new User();
+            if(isset($input['email'])){
+                $users = $users->where('email', $input('email'));
+            }
+            if(isset($input['phone'])){
+                $users = $users->where('email', $input('phone'));
+            }
+            $users = $users->get();
+            $this->presenter->parse($users);
+        }catch (\Exception $exception){
+            $this->presenter->parseException($exception);
+
+        }
 
     }
 }
