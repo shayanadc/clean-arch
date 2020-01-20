@@ -13,6 +13,7 @@ use App\Presenters\UserRemoveJsonPresenter;
 use App\Presenters\UserUpdateJsonPresenter;
 use App\UseCases\UserRegistrationUseCase;
 use App\UseCases\UserRemoveUseCase;
+use App\UseCases\UserUpdateUseCase;
 use App\User;
 use Illuminate\Http\Request;
 
@@ -104,23 +105,5 @@ class UserController extends Controller
         $UC = new UserRemoveUseCase($presenter);
         return $UC->perform($id);
 
-    }
-}
-
-class UserUpdateUseCase{
-    private $presenter;
-    public function __construct(Presenter $presenter)
-    {
-        $this->presenter = $presenter;
-    }
-    public function perform($input){
-        try{
-            unset($input['password']);
-            unset($input['email']);
-            $user = User::findAndUpdate($input['id'], $input);
-            return $this->presenter->parse($user);
-        }catch (\Exception $exception){
-            return $this->presenter->parseException($exception);
-        }
     }
 }
