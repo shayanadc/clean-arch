@@ -11,7 +11,7 @@ use Behat\Gherkin\Node\TableNode;
 class FeatureContext extends \Tests\TestCase implements Context
 {
     private $endpoint;
-    private $request;
+    private $request = [];
     private $response;
     use \Illuminate\Foundation\Testing\DatabaseMigrations;
     /**
@@ -80,6 +80,7 @@ class FeatureContext extends \Tests\TestCase implements Context
     public function sendRequest($arg1)
     {
         if($arg1 == 'POST') $this->response = $this->postJson($this->endpoint,$this->request);
+        if($arg1 == 'DELETE') $this->response = $this->deleteJson($this->endpoint,$this->request);
     }
 
     /**
