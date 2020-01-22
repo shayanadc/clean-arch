@@ -29,6 +29,6 @@ class UserRegistrationUseCase
         $userEntity = new UserEntity();
         $user = $userEntity->create($hashService->data);
         $newUser = User::createNew($user);
-        return (new UserRegistrationJsonPresenter())->parse($newUser);
+        return $this->presenter->parse($newUser);
     }
 }

@@ -19,11 +19,6 @@ class UserEntity
     public $fname;
     public $lname;
     public $password;
-    private $hashMakerInterface;
-    public function __construct()
-    {
-        $this->hashMakerInterface = new BcryptHashMaker();
-    }
 
     public function create(array $array)
     {
