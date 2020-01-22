@@ -21,8 +21,6 @@ class UserUpdateUseCase{
     }
     public function perform($input){
         try{
-            unset($input['password']);
-            unset($input['email']);
             $user = new User();
             $m = new DataAccessModel($user);
             $user = $m::findAndUpdate($input['id'], $input);

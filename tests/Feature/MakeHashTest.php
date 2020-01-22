@@ -17,7 +17,6 @@ class MakeHashTest extends TestCase
     {
         BcryptHashMaker::setTest('5GV1TVWVKtbWxgPRZCReCkqpnYF0Q8RGfdYBjE0wgmp3UX');
         $hashMaker = new BcryptHashMaker();
-        $new = new UserEntity();
-        $this->assertEquals('5GV1TVWVKtbWxgPRZCReCkqpnYF0Q8RGfdYBjE0wgmp3UX', $new->makePassword('password', $hashMaker));
+        $this->assertEquals('5GV1TVWVKtbWxgPRZCReCkqpnYF0Q8RGfdYBjE0wgmp3UX', $hashMaker->make('password', $hashMaker));
     }
 }
