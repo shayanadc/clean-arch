@@ -2,7 +2,7 @@ Feature: Delete User From App
   In Order To Delete Existing User From Application
   As A Member
   I Need To Be Able To Delete Account With Personal All Information
-
+  @4
   Scenario: Remove Softly Existing User Successfully
     Given I am a member
     And I have created user with email "azar@email.com" and phone "09397730108"
@@ -16,7 +16,7 @@ Feature: Delete User From App
         }
         """
     And I could not see user with id "1"
-
+  @5
   Scenario: Failed To Remove Non Existing User
     Given I am a member
     When I open endpoint '/api/users/1'
