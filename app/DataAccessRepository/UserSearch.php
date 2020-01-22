@@ -20,12 +20,9 @@ class UserSearch
     }
 
     public function applyFilter($request){
-    if(isset($request['email'])){
-        $this->users = $this->users->email($request['email']);
-    }
-    if(isset($request['phone'])){
-        $this->users = $this->users->phone($request['phone']);
-    }
-    return $this->users->get();
+        foreach ($request as $item => $value){
+            $this->users = $this->users->$item($value);
+        }
+        return $this->users->get();
 }
 }
