@@ -25,8 +25,7 @@ class UserRegistrationUseCase
     {
         $userEntity = new UserEntity();
         $user = $userEntity->create($data);
-        $userModel = new User();
-        $newUser = $userModel->createNew($user);
+        $newUser = User::createNew($user);
         $presenter = new UserRegistrationJsonPresenter();
         return $presenter->parse($newUser);
     }

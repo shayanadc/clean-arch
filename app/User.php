@@ -38,7 +38,7 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-    public function createNew(UserEntity $entity){
+    public static function createNew(UserEntity $entity){
         return User::create([
             'email' => $entity->email,
             'fname' => $entity->fname,
