@@ -31,11 +31,9 @@ class UserEntity
         $this->phone = $array['phone'];
         $this->fname = $array['fname'];
         $this->lname = $array['lname'];
-        $this->password = $this->makePassword($array['password'], $this->hashMakerInterface);
+        $this->password =$array['password'];
         return $this;
     }
-    public function makePassword($string, HashMakerInterface $hashMaker){
-        return $hashMaker->make($string);
-    }
+
 
 }

@@ -9,10 +9,12 @@
 namespace App\UseCases;
 
 
+use App\BcryptHashMaker;
 use App\Entities\UserEntity;
 use App\Presenters\Presenter;
 use App\Presenters\UserRegistrationJsonPresenter;
 use App\User;
+use App\UserDataHashService;
 
 class UserRegistrationUseCase
 {
@@ -23,8 +25,9 @@ class UserRegistrationUseCase
     }
     public function perform($data)
     {
+        $hashService = new UserDataHashService($data);
         $userEntity = new UserEntity();
-        $user = $userEntity->create($data);
+        $user = $userEntity->create($hashService->data);
         $newUser = User::createNew($user);
         return (new UserRegistrationJsonPresenter())->parse($newUser);
     }
