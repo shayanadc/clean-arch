@@ -53,8 +53,7 @@ class UserController extends Controller
         $userRegisterInput = new UserRegisterInputBoundary();
         $inputBoundary = $userRegisterInput->make($request->toArray());
         $presenter = new UserRegistrationJsonPresenter();
-        $useCase = new UserRegistrationUseCase($presenter);
-        return $useCase->perform($inputBoundary);
+        return (new UserRegistrationUseCase($presenter))->perform($inputBoundary);
     }
 
     /**
@@ -91,8 +90,7 @@ class UserController extends Controller
         $inputBoundary = new UserUpdateInputBoundary();
         $input = $inputBoundary->make($request->except(['email', 'id', 'password']), $id);
         $presenter = new UserUpdateJsonPresenter();
-        $UC = new UserUpdateUseCase($presenter);
-        return $UC->perform($input);
+        return (new UserUpdateUseCase($presenter))->perform($input);
 
     }
 
@@ -105,8 +103,6 @@ class UserController extends Controller
     public function destroy($id)
     {
         $presenter = new UserRemoveJsonPresenter();
-        $UC = new UserRemoveUseCase($presenter);
-        return $UC->perform($id);
-
+        return (new UserRemoveUseCase($presenter))->perform($id);
     }
 }
