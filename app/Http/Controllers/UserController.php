@@ -89,7 +89,7 @@ class UserController extends Controller
     public function update(Request $request, $id)
     {
         $inputBoundary = new UserUpdateInputBoundary();
-        $input = $inputBoundary->make($request->toArray(), $id);
+        $input = $inputBoundary->make($request->except(['email', 'id', 'password']), $id);
         $presenter = new UserUpdateJsonPresenter();
         $UC = new UserUpdateUseCase($presenter);
         return $UC->perform($input);
