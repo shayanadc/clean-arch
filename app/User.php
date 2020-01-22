@@ -47,4 +47,12 @@ class User extends Authenticatable
             'phone' => $entity->phone
         ]);
     }
+    public function scopeEmail($query,$emil)
+    {
+        return $query->where('email', 'like', '%' . $emil . '%');
+    }
+    public function scopePhone($query, $phone)
+    {
+        return $query->where('phone', 'like', '%' . $phone . '%');
+    }
 }
