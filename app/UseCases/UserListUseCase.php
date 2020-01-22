@@ -3,8 +3,8 @@
 namespace App\UseCases;
 
 
+use App\DataAccessRepository\UserSearch;
 use App\Presenters\Presenter;
-use App\User;
 
 class UserListUseCase{
     public $presenter;
@@ -15,15 +15,7 @@ class UserListUseCase{
 
     public function perform($input){
         try{
-            $users = new User();
-            if(isset($input['filters']['email'])){
-                $users = $users->email($input['filters']['email']);
-            }
-            if(isset($input['filters']['phone'])){
-                $users = $users->phone($input['filters']['phone']);
-            }
-            $users = $users->get();
-
+            $users =(new UserSearch())->applyFilter($input['filters']);
             return $this->presenter->parse($users);
 
         }catch (\Exception $exception){
