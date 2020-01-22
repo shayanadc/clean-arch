@@ -9,6 +9,7 @@
 namespace App\UseCases;
 
 
+use App\DataAccessRepository\DataAccessModel;
 use App\Presenters\Presenter;
 use App\User;
 
@@ -21,7 +22,9 @@ class UserRemoveUseCase
     }
     public function perform($id){
         try{
-            User::findAndDelete($id);
+            $user = new User();
+            $m = new DataAccessModel($user);
+            $m::findAndDelete($id);
             return $this->presenter->parse($id);
         }catch (\Exception $exception){
             return $this->presenter->parseException($exception);

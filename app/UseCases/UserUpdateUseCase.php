@@ -9,6 +9,7 @@
 namespace App\UseCases;
 
 
+use App\DataAccessRepository\DataAccessModel;
 use App\Presenters\Presenter;
 use App\User;
 
@@ -22,7 +23,9 @@ class UserUpdateUseCase{
         try{
             unset($input['password']);
             unset($input['email']);
-            $user = User::findAndUpdate($input['id'], $input);
+            $user = new User();
+            $m = new DataAccessModel($user);
+            $user = $m::findAndUpdate($input['id'], $input);
             return $this->presenter->parse($user);
         }catch (\Exception $exception){
             return $this->presenter->parseException($exception);
